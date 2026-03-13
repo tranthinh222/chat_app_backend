@@ -44,4 +44,6 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.createUser(user));
     }
+
+
 }

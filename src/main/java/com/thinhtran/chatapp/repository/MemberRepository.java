@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecificationExecutor<Member> {
+public interface MemberRepository extends JpaRepository<Member, Long>{
 
     @Query("""
         SELECT 
@@ -22,5 +22,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
         JOIN m.user u
         WHERE m.conversation.id = :id
     """)
-    List<ResConversationMemberDto> findByConversationId(Long id);
+    List<ResConversationMemberDto> findMemberByConversationId(Long id);
+    List<Member> findByConversationId(Long conversationId);
+    List<Long> findUserIdsByConversationId(Long conversationId);
 }

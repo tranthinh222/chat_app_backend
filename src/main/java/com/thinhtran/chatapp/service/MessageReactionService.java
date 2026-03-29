@@ -6,7 +6,7 @@ import com.thinhtran.chatapp.domain.MessageReactionId;
 import com.thinhtran.chatapp.domain.User;
 import com.thinhtran.chatapp.domain.request.ReqCreateMessageReactionDto;
 import com.thinhtran.chatapp.domain.request.ReqUpdateMessageReactionDto;
-import com.thinhtran.chatapp.domain.response.MessageReactionDto;
+import com.thinhtran.chatapp.domain.response.ResMessageReactionDto;
 import com.thinhtran.chatapp.repository.MessageReactionRepository;
 import com.thinhtran.chatapp.repository.MessageRepository;
 import com.thinhtran.chatapp.repository.UserRepository;
@@ -26,7 +26,7 @@ public class MessageReactionService {
         this.messageRepository = messageRepository;
     }
 
-    public List<MessageReactionDto> getMessageReactionByMessageId(Long messsageId){
+    public List<ResMessageReactionDto> getMessageReactionByMessageId(Long messsageId){
         return this.messageReactionRepository.findAllByMessageId(messsageId);
     }
 

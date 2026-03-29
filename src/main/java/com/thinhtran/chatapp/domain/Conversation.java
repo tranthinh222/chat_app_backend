@@ -1,6 +1,7 @@
 package com.thinhtran.chatapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thinhtran.chatapp.util.SecurityUtil;
 import com.thinhtran.chatapp.util.constant.RoomTypeEnum;
 import jakarta.persistence.*;
@@ -10,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
@@ -29,6 +31,13 @@ public class Conversation {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
     private Instant createdAt;
+
+    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Member> members;
+
+    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Message> messages;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name="created_by")

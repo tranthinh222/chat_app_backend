@@ -1,4 +1,15 @@
 package com.thinhtran.chatapp.config;
 
-public class MyPrincipal {
+import java.security.Principal;
+
+public class MyPrincipal implements Principal {
+    private String userId;
+    public MyPrincipal(String userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public String getName() {
+        return userId;
+    }
 }

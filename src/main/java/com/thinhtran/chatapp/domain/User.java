@@ -2,6 +2,7 @@ package com.thinhtran.chatapp.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thinhtran.chatapp.util.SecurityUtil;
 import com.thinhtran.chatapp.util.constant.GenderEnum;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
@@ -29,6 +31,26 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Conversation> conversations;
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Message> messages;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<MessageStatus> messageStatuses;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<MessageReaction> messageReactions;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Member> members;
 
     @Column(nullable = false, unique = true)
     private String phone;

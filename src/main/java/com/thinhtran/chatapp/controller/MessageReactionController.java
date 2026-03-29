@@ -4,7 +4,7 @@ import com.thinhtran.chatapp.domain.MessageReaction;
 import com.thinhtran.chatapp.domain.MessageReactionId;
 import com.thinhtran.chatapp.domain.request.ReqCreateMessageReactionDto;
 import com.thinhtran.chatapp.domain.request.ReqUpdateMessageReactionDto;
-import com.thinhtran.chatapp.domain.response.MessageReactionDto;
+import com.thinhtran.chatapp.domain.response.ResMessageReactionDto;
 import com.thinhtran.chatapp.service.MessageReactionService;
 import com.thinhtran.chatapp.util.annotation.ApiMessage;
 import com.thinhtran.chatapp.util.error.IdInvalidException;
@@ -27,7 +27,7 @@ public class MessageReactionController {
 
     @GetMapping("/reactions/{id}")
     @ApiMessage("fetch reaction by message id")
-    public ResponseEntity<List<MessageReactionDto>> getReactionByMessageId(@PathVariable("id") Long id) {
+    public ResponseEntity<List<ResMessageReactionDto>> getReactionByMessageId(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(this.messageReactionService.getMessageReactionByMessageId(id));
     }
 

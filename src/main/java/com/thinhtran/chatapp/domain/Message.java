@@ -1,5 +1,6 @@
 package com.thinhtran.chatapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thinhtran.chatapp.util.SecurityUtil;
 import com.thinhtran.chatapp.util.constant.MessageTypeEnum;
 import jakarta.annotation.Nullable;
@@ -10,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,6 +31,18 @@ public class Message {
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name="conversation_id")
     private Conversation conversation;
+
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<MessageStatus> messageStatuses;
+
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<MessageReaction> messageReactions;
+
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<MessageFile> messageFiles;
 
     private MessageTypeEnum messageType;
     @Column(columnDefinition = "MEDIUMTEXT")
